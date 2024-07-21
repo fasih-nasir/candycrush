@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy Crush Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            height: 100vh;
+            margin: 0;
+        }
+        .board {
+            gap: 5px;
+            /* background-color: white; */
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            /* border: 1px solid grey; */
+        }
+        .box {
+            height: 60px;
+            width: 80px;
+            background-size: cover;
+            object-fit: cover;
+            cursor: crosshair;
+            width: 50px;
+            /* transition: bac; */
+        /* background-image: url("img/color(1).png"); */
+        }
+        .fall{
+            animation:  fall 0.2s ease forwards;
+        }
+        @keyframes fall {
+            from{
+                transform: translateY(-100%);
+                opacity: 0;
+            }to{
+                transform: translateY(0%);
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+  <div class="board" id="board"></div>
+  <!-- <img src="img/color (1).png" alt=""> -->
+<script>
+
+    const width=8
+    const color=[]
+    const arr=[]
+    var element=null
+    function fn(){
+        const board=document.getElementById("board")
+        for(let i=0;i<width*width;i++){
+
+            var rand=Math.ceil(Math.random() * 4)
+
+    var div=document.createElement("Div")
+    div.className="box"
+    div.style.backgroundImage=`url('img/color (${rand}).png')`
+    arr.push(div)
+board.appendChild(div)
+
+div.addEventListener("dragstart",dragStart)
+
+div.addEventListener("dragover",dragOver)
+div.addEventListener("drop",drop)
+}
+checkForMatches()
+}
+
+function dragStart(event){
+element=event.target;
+
+}
+function dragOver(event){
+    event.preventDefault()
+
+}
+function drop(event){
+    event.preventDefault();
+    var target=event.target;
+    if(target && target.className==="box"){
+     var dragImage=element.style.backgroundImage;
+        element.style.backgroundImage=target.style.backgroundImage;
+        target.style.backgroundImage=dragImage
+        checkForMatches()
+      
+    }
+}
+
+function checkForMatches() {
+    let matchFound = false;
+
+
+    for (let i = 1; i < width * width; i++) {
+        // console.log(width-1);
+            // 8 % 8 < 8-2
+            //   1   < 6
+        if (i % width < width - 2) {
+     if(arr[i].style.backgroundImage === arr[i + 1].style.backgroundImage &&
+    
+     arr[i].style.backgroundImage === arr[i + 2].style.backgroundImage
+    )  {
+        arr[i].style.backgroundImage="none";
+         arr[i+1].style.backgroundImage="none";
+          arr[i+2].style.backgroundImage="none";
+     matchFound=true
+        } 
+    }
+    }
+    for (let i = 0; i < width * (width - 2); i++) {
+        // console.log( i+ width);
+    if (arr[i].style.backgroundImage === arr[i + width].style.backgroundImage &&
+        arr[i].style.backgroundImage === arr[i + 2 * width].style.backgroundImage) {
+        arr[i].style.backgroundImage = "none";
+        arr[i + width].style.backgroundImage = "none";
+        arr[i + 2 * width].style.backgroundImage = "none";
+        matchFound = true;
+    }
+}
+
+
+    if (matchFound) {
+        setTimeout(refillBoard, 100); // Refill board after a short delay
+    }
+
+}
+function refillBoard() {
+    for (let i = 0; i <  width * width; i++) {
+        if (arr[i].style.backgroundImage === 'none') {
+            var rand=Math.ceil(Math.random() * 4);
+            // arr[i].classList.add("fall")
+            arr[i].style.backgroundImage =  `url('img/color (${rand}).png')`;
+        }
+    }
+    setTimeout(checkForMatches, 10); // Check for new matches after refilling
+}
+fn()
+
+// console.log(1%width);
+// console.log(8 % width < width);
+</script>
+</body>
+</html>
