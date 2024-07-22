@@ -8,242 +8,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css">
 </head>
-<style>
-    body {
-        height: 97vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        object-fit: cover;
-        font-family: "Nunito", sans-serif !important;
-        background-image: url("img/backgroun.jpg");
-    }
-@media (max-width:992px) {
-    .board{
-        width: 100% !important;
-    }
-}
-    .board {
-        position: absolute;
-        justify-content: center;
-        padding: 15px 10px;
-        width: 40%;
-        border-radius: 20px;
-        background-color: rgba(247, 224, 245, 0.532);
-        gap: 5px;
-        display: grid;
-        /* border: 2px solid red; */
-        grid-template-columns: repeat(8, 50px);
-        ;
-        grid-template-rows: repeat(8, 50px);
-        ;
-    }
 
-    .box {
-        /* box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px; */
-        /* border: 1px solid white; */
-        z-index: 1;
-        height: 60px;
-        width: 80px;
-        background-size: cover;
-        object-fit: cover;
-        cursor: crosshair;
-        width: 50px;
-    }
-
-    .flow {
-        z-index: 1;
-        animation: fn 0.5s ease forwards;
-    }
-
-    @keyframes fn {
-        from {
-            transform: translateY(-100%);
-        }
-
-        to {
-            transform: translateY(0%);
-        }
-    }
-    .board1{
-        /* display: block !important; */
-        height: 80%;
-        position: absolute;
-        background-repeat: no-repeat;
-        background-size: cover;
-        object-fit: cover;
-        background-position: center;
-        background-image: url("img/Candy-Crush-Saga06132020-031548-15922_thumb_LE_auto_x2.jpg");
-        background-color: pink;
-        z-index: 3;
-
-    }
-    .str{
-        position: absolute;
-        bottom: 115px;
-        left: 33%;
-background-color: transparent;
-color: transparent;
-border: none;
-        padding: 12px 70px;
-    }
-   .h{
-       position:absolute;
-       left: 10px;
-       padding: 10px;
-       top: 6%;
-/* margin: 10px 0px; */
-       color: white;
-    }
-    .h>h5{
-        text-transform: uppercase;
-        padding: 10px;
-        border-radius: 7px;
-    margin-top: -10px;
-        background-color: white;
-    color: rgb(255, 98, 124) !important; 
-
-}
-</style>
 
 <body>
     <div class="h">
-        <h5>Max 30 Score Needed To Win</h5>
+        <h5>Max 50 Score Needed To Win</h5>
     <h5 >Timer: <span id="time">0</span></h5>
     <h5 >Score: <span id="score">0</span></h5>
 </div>
+<div class="h0">
+    <h5 title="Realod"> <i class="fa-solid fa-rotate-right" id="rel"  ></i></h5>
+    <h5><i class="fas fa-volume-mute" id="mut"></i></h5>
+
+</div>
     <audio loop id="aud">
         <source src="img/candy_crush_loop1.mp3"  type="audio/mpeg">
+    </audio>
+    <audio loop id="aud1">
+        <source src="img/candycrushcombo4.mp3"  type="audio/mpeg">
     </audio>
     <div class="board" id="board"></div>
     <div class="board board1" id="board1">
     <button onclick="ply()" class="str">start</button>
 </div>
-<script>
-       var a;
-        document.addEventListener("DOMContentLoaded", function() {
-            create1();
-        });
-  
-        function ply(){
-      
-            var aud=document.getElementById("aud");
-            aud.play()
-         document.getElementById("board1").style.display="none"
-         a=setInterval(tim,1500)
-        }
-        
-        
-        var scr;
-        var time
-        time=30;
-        function tim(){
-            document.getElementById("time").innerHTML=--time
-            if(time <= 0){
-                time=0;
-                stop(a)
-                document.getElementById("board").style.display="none"
-                document.getElementById("board1").style.display="block"
-                location.reload()
-                
-                return;
-            }
-            
-            
-        }
-        // a=setInterval(tim,100)
-        
-const width = 8;
-var arr = [];
-var element = null
-function create1() {
-            scr=0
-         
-            var board = document.getElementById("board")
-            for (let i = 0; i < width * width; i++) {
-                var div = document.createElement("Div")
-                div.className = "box"
-
-                var rand = Math.ceil(Math.random() * 6)
-                
-                div.style.backgroundImage = `url("img/color\ \(${rand}\).png")`
-                arr.push(div)
-                board.append(div)
-                div.addEventListener("dragstart", dragStart)
-                div.addEventListener("dragover", dragOver)
-                div.addEventListener("drop", drop)
-
-            }
-            check()
-        }
-
-        function dragStart(event) {
-            element = event.target;
-        }
-        function dragOver(event) {
-            event.preventDefault()
-        }
-        function drop(event) {
-            event.preventDefault()
-            var imgelemt = event.target;
-            if (imgelemt && imgelemt.className === "box") {
-                var dragimg = element.style.backgroundImage;
-                element.style.backgroundImage = imgelemt.style.backgroundImage;
-                imgelemt.style.backgroundImage = dragimg
-                check()
-            }
-
-        }
-        function check() {
-            var flg = false
-            for (let i = 0; i < width * width; i++) {
-                if (i % width < width - 2) {
-                    if (arr[i].style.backgroundImage === arr[i + 1].style.backgroundImage && arr[i].style.backgroundImage === arr[i + 2].style.backgroundImage) {
-                        arr[i].style.backgroundImage = "none";
-                        arr[i + 1].style.backgroundImage = "none";
-                        arr[i + 2].style.backgroundImage = "none";
-                        // refill()
-                        flg = true
-                       document.getElementById("score").innerHTML=scr++ + 1
-                    }
-                }
-            }
-
-            for (let i = 0; i < width * (width - 2); i++) {
-
-                if (arr[i].style.backgroundImage === arr[i + width].style.backgroundImage && arr[i].style.backgroundImage === arr[i + 2 * width].style.backgroundImage) {
-                    arr[i].style.backgroundImage = "none";
-                    arr[i + width].style.backgroundImage = "none";
-                    arr[i + 2 * width].style.backgroundImage = "none";
-                    // refill()
-                    flg = true
-                    document.getElementById("score").innerHTML=scr++
-                }
-            }
-            if (flg) {
-                setTimeout(refill, 100)
-            }
-        }
-        function refill() {
-            for (let i = 0; i < width * width; i++) {
-                var rand = Math.ceil(Math.random() * 6)
-                if (arr[i].style.backgroundImage === "none") {
-                    arr[i].classList.add("flow")
-                    arr[i].style.backgroundImage = `url("img/color (${rand}).png")`
-                    arr[i].addEventListener('animationend', () => {
-                arr[i].classList.remove('flow');
-            });
-                }
-            }
-            setTimeout(check, 10)
-
-        }
-     
-        // })
-    </script>
+<script src="app.js"></script>
 </body>
 
 </html>
