@@ -73,11 +73,11 @@
     .str{
         position: absolute;
         bottom: 115px;
-        left: 33%;
+        left: 23%;
 background-color: transparent;
 color: transparent;
 border: none;
-        padding: 12px 70px;
+        padding: 20px 150px;
     }
    .h{
        position:absolute;
