@@ -29,7 +29,16 @@ To run this game, you need a web browser that supports HTML5, CSS3, and JavaScri
 
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/72d2481e-12e1-472f-86a6-13d3326be085)
+# Fasih-Nasir's Project Showcase 🎇📌
 
+
+
+### Home Page
+
+The home page showcases my top-rated projects. Users can navigate through different categories of projects using a dropdown menu and search bar. Each project is displayed with an image, title, and a link to view the live demo.
+
+![image](https://github.com/user-attachments/assets/59ff1785-18a4-4f93-b23a-f111a944f97a) 
+- 👨‍💻 All of my projects are available at [https://fasih-nasirall.netlify.app/]
 - 👨‍💻 All of my projects are available at [https://fasih-nasirall.netlify.app/]
 
 - 📝 I regularly write articles on [https://fasihnasirportfolio.netlify.app/](https://fasihnasirportfolio.netlify.app/)
